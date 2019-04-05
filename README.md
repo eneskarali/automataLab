@@ -9,3 +9,5 @@
   4. [CW4 - CFG](./CW4/palindromes.html)
   
   5. [CW5](./CW5/Expression.html)
+  
+  6. [HW1 - Text Coloring with RegExp](./HW1/hw1.html)
