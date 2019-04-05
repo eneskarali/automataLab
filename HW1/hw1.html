@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ATFL - HW1</title>
+</head>
+<style>
+    code {
+        outline: none;
+        overflow: hidden;
+        resize: none;
+        background: #ffffff center center no-repeat;
+        border: 1px solid #ffffff;
+        width: 95%;
+        height: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        padding: 0%;
+        font-size: 13px;
+    }
+</style>
+
+<body>
+    <h3>Text Coloring for Arrays and Strings</h3>
+
+    <code ondragstart="return false" ondrop="false" id="inputArea" contenteditable="true" oninput="typed()">
+    <div >let longString = "This is a very long string which needs " +
+
+        "to wrap across multiple lines because " +
+
+        "otherwise my code is unreadable.";</div>
+    <div>var vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot'];
+
+        var fruits = ["Apple", "Banana", "Orange"];
+        var years = [1950, 1960, 1970, 1980, 1990, 2000, 2010];</div>
+    </code>
+
+    <div style="position: absolute; bottom: 5px; background-color: whitesmoke">
+        <a
+            href="https://stackoverflow.com/questions/36869503/set-caret-position-in-contenteditable-div-that-has-children" target="_blank">Ref
+        </a>
+    </div>
+
+    <script>
+        let indexes = [];
+        var caretPositionVal;
+        var inputArea = document.getElementById("inputArea");
+        typed();
+
+
+        function typed() {
+            let nodeList = inputArea.childNodes;
+            var curretDiv = getSelectionStart() || nodeList[nodeList.length - 1];
+            if (curretDiv instanceof HTMLSpanElement) {
+                curretDiv = curretDiv.parentElement;
+            }
+            caretPositionVal = getCaretPosition(curretDiv);
+            for (let i = 0; i < nodeList.length; i++) {
+                if (nodeList[i] instanceof HTMLElement) {
+                    let currentNodeText = nodeList[i].textContent;
+                    nodeList[i].removeAttribute("style");
+                    if (currentNodeText.length > 1) {
+                        let replaced = checkRE(currentNodeText);
+                        nodeList[i].innerHTML = replaced;
+                    }
+                }
+            }
+            SetCaretPosition(curretDiv, caretPositionVal);
+            indexes = [];
+        }
+
+        function checkRE(text) {
+            const expForStr = new RegExp(/"(.*?)"/, 'g');
+            const expForArr = new RegExp(/\[(.*?)\]/, 'g');
+
+            var replaced = text;
+            while (matchA = expForArr.exec(text)) {
+                indexes.push(matchA.index);
+                indexes.push(matchA.index + matchA[0].length);
+                replaced = replaced.replace(matchA[0], '<span style="color:red">' + matchA[0] + '</span>');
+            }
+            while (match = expForStr.exec(text)) {
+                let i = 0;
+                let isInside = false;
+                while (i < indexes.length) {
+                    if (match.index > indexes[i] && match.index < indexes[i + 1]) {
+                        isInside = true; 
+                        break;
+                    }
+                    i += 2;
+                }
+                if (isInside == true) continue;
+                replaced = replaced.replace(new RegExp(match[0], 'g'), '<span style="color:blue">' + match[0] + '</span>');
+            }
+            return replaced;
+        }
+
+        function getSelectionStart() {
+            var node = document.getSelection().anchorNode;
+            if (node == null) return null;
+            return (node.nodeType == 3 ? node.parentNode : node);
+        }
+
+        function SetCaretPosition(el, pos) {
+            for (var node of el.childNodes) {
+                if (node.nodeType == 3) {
+                    if (node.length >= pos) {
+                        var range = document.createRange(),
+                            sel = window.getSelection();
+                        range.setStart(node, pos);
+                        range.collapse(true);
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                        return -1;
+                    } else {
+                        pos -= node.length;
+                    }
+                } else {
+                    pos = SetCaretPosition(node, pos);
+                    if (pos == -1) {
+                        return -1;
+                    }
+                }
+            }
+            return pos;
+        }
+
+        function getCaretPosition(node) {
+            if (window.getSelection().anchorNode == null) return node.length;
+            var range = window.getSelection().getRangeAt(0),
+                preCaretRange = range.cloneRange(),
+                caretPosition,
+                tmp = document.createElement("div");
+
+            preCaretRange.selectNodeContents(node);
+            preCaretRange.setEnd(range.endContainer, range.endOffset);
+            tmp.appendChild(preCaretRange.cloneContents());
+            caretPosition = tmp.textContent.length;
+            return caretPosition;
+        }
+
+
+    </script>
+</body>
+
+</html>
