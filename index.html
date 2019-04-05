@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Enes Karali</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="256x256" href="images/ns.PNG">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('sw.js')
+                .then((reg) => { console.log('SW Registered', reg) })
+                .catch(console.log)
+        }
+    </script>
+
+
+    <style>
+        body {
+            background-color: #d4e6d9;
+        }
+
+        ul dt {
+            background: #92bba1;
+            font-size: 20px;
+            line-height: 35px;
+            height: 40px;
+            margin: 5px;
+            text-align: center;
+            vertical-align: middle;
+            width: 400px;
+        }
+
+        ul {
+            background: #345e44;
+            padding: 15px;
+            width: 420px;
+        }
+
+        dt:hover {
+            background: #c0ddbc;
+            padding: 0px;
+        }
+
+        a:link {
+            color: black;
+            text-decoration: unset;
+        }
+
+        a:visited {
+            color: black;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: rgb(65, 24, 5);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<header>
+
+</header>
+
+
+<body>
+    <div align="center" style="max-width: 99%; height: auto; ">
+        <h2 style="color: rgb(11, 44, 16); ">My Class Works</h2>
+        <ul>
+            <dt>
+                <p><a target="_self"
+                        href="https://eneskarali.github.io/automataLab/CW2/CW2.html">CW2
+                        -
+                        DFA-NFA-RegExp</a></p>
+            </dt>
+            <dt>
+                <p><a target="_self" href="https://eneskarali.github.io/automataLab/CW3/regEx.html">CW3 - Regular Expressions</a></p>
+            </dt>
+            <dt>
+                <p><a target="_self" href="https://eneskarali.github.io/automataLab/CW4/palindromes.html">CW4 - Context Free Grammar</a></p>
+            </dt>
+            <dt>
+                <p><a target="_self" href="https://eneskarali.github.io/automataLab/CW5/Expression.html">CW5
+                        -
+                        Expression Parser</a></p>
+            </dt>
+        </ul>
+        <h2 style="color: rgb(11, 44, 16);">My Homeworks</h2>
+
+        <ul>
+            <dt>
+                <p><a target="_self"
+                        href="https://eneskarali.github.io/automataLab/HW1/hw1.html">HW1 -
+                        Text Coloring with RegExp</a></p>
+            </dt>
+        </ul>
+        <p style="position: absolute; bottom: 5px; font-size: 20px;color:#345e44">Github: <a target="_self"
+                href="https://github.com/eneskarali/advancedProgrammingLab" >My Github Repo</a></p>
+
+    </div>
+    </div>
+</body>
+
+</html>

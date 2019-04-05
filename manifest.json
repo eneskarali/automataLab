@@ -1,0 +1,13 @@
+{
+    "name": "Enes Karali's Work",
+    "start_url": "/automataLab/index.html",
+    "display": "standalone",
+    "background_color": "green",
+    "icons": [
+      {
+        "src": "images/ns.PNG",
+        "sizes": "256x256",
+        "type": "image/png"
+      }
+    ]
+  }
