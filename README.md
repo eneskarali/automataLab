@@ -13,3 +13,5 @@
   6. [HW1 - Text Coloring with RegExp](./HW1/hw1.html)
 
   7. [CW6 - PDA](./CW6/PDA.html)
+  
+  8. [CW7 - MicroJ Prime Number Program](./CW7/microJ3.html)
