@@ -1,0 +1,32 @@
+mod(number, divisor){
+	while(number>=divisor){
+		number = number - divisor;
+	}
+	return number;
+}
+
+primeNumberCount(){
+	var a,b, counter, modV, control;
+	read a;
+	b = 2;
+	counter = 0;
+		while(b<=a){
+			control = 2;
+			while(control<=b/2){
+				modV = mod(b, control);
+				if(modV == 0){
+					counter = counter + 1;
+				}
+				control = control + 1;
+			}
+			if(counter == 0){
+				print b , " ";
+			}
+			control = 0;
+			counter = 0;
+			b = b + 1;
+		}	
+	}
+	
+
+
