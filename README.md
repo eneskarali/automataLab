@@ -18,4 +18,4 @@
   
   9. [HW2 - Math Funtions Implementation for EP](./HW2/Expression.html)
   
- 10. [HW3 - MicroJ1 withValue Rule Implementation ](./HW2/Expression.html)
+ 10. [HW3 - MicroJ1 withValue Rule Implementation ](./HW3/microJ1.html)
