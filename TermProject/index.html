@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Push Down Automata Stack Visualization</h2>
+
+
+    <p>input = <input type="text" />
+        <button style="width: 100px; height: 25px; margin-left: 70px">Next Step</button></p>
+
+    <br>
+    <br>
+    <br>
+
+    <canvas id="stackCanvas" width="500" height="500"></canvas>
+
+    <script>
+        var stack = [];
+        var canvas = document.getElementById("stackCanvas");
+        var context = canvas.getContext("2d");
+
+        drawStack();
+
+        function drawStack() {
+            context.moveTo(10, 10);
+            context.lineTo(10, 200);
+            context.moveTo(10, 200);
+            context.lineTo(80, 200);
+            context.moveTo(80, 200);
+            context.lineTo(80, 10);
+            context.font = "15px Arial";
+            context.fillText("stact", 28, 215);
+            context.stroke();
+        }
+    </script>
+</body>
+
+</html>
