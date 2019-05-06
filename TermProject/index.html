@@ -9,36 +9,149 @@
 </head>
 
 <body>
+    <h2>Push Down Automata</h2>
+    <p>We have already discussed finite automata. But finite automata can be used to accept only regular languages.<br>
+            Pushdown Automata is a finite automata with extra memory called stack which helps Pushdown automata to recognize Context Free Languages.<br>
+            <br>
+            A Pushdown Automata (PDA) can be defined as :<br>
+            <br>
+            Q is the set of states<br>
+            ∑is the set of input symbols<br>
+            Γ is the set of pushdown symbols (which can be pushed and popped from stack)<br>
+            q0 is the initial state<br>
+            Z is the initial pushdown symbol (which is initially present in stack)<br>
+            F is the set of final states<br>
+            δ is a transition function which maps Q x {Σ	∪ ∈} x Γ into Q x Γ*. In a given state, PDA will read input symbol and stack symbol (top of the stack) and move to a new state and change the symbol of stack.<br></p>
     <h2>Push Down Automata Visualization</h2>
 
-
-    <p>input = <input type="text" />
-        <button style="width: 100px; height: 25px; margin-left: 70px">Next Step</button></p>
+    <p>PDA example for  <b> L = { 0^n 1^n | n>=0}</b></p>
+    <p>input = <input type="text" id="input" value="0011" />
+        <button style="width: 80px; height: 25px; margin-left: 70px" id="startButton"  onclick="startButtonClicked()">Start</button>
+        <button style="width: 100px; height: 25px; margin-left: 70px" hidden="hidden" id="stepButton"
+            onclick="stepButtonClixked()">Next Step</button></p>
+    <br>
+    <p style="float: left;">Passed Chars: &emsp; </p>
+    <p id="out">-</p>
 
     <br>
-    <br>
-    <br>
 
-    <canvas id="stackCanvas" width="500" height="500"></canvas>
+    <canvas id="stackCanvas" width="400" height="300px"></canvas>
+    <canvas id="digramCanvas" width="240px" height="335px"></canvas>
 
     <script>
         var stack = [];
+        var index = 0;
+        var currenState = "q1";
+        var q1 = [119, 41];
+        var q2 = [119, 135];
+        var q3 = [119, 218];
+        var q4 = [119, 303];
+
         var canvas = document.getElementById("stackCanvas");
         var context = canvas.getContext("2d");
 
-        drawStack();
+        drawStack(stack);
+        drawOnImage();
 
-        function drawStack() {
-            context.moveTo(10, 10);
-            context.lineTo(10, 200);
-            context.moveTo(10, 200);
+        function startButtonClicked() {
+            var stepButton = document.getElementById("stepButton");
+            var startButton = document.getElementById("startButton");
+            stepButton.hidden = "";
+            startButton.hidden = "hidden";
+            index = 0;
+            currenState = "q1";
+            out.innerHTML = input.value;
+            drawOnImage(q1[0],q1[1]);
+        }
+
+        function stepButtonClixked() {   
+            var inVal = input.value;
+            var outVal =   '<span style="color:grey">' + inVal.slice(0, index) + '</span>' + '<span style="color:blue">' + inVal.slice(index) + '</span>';
+            out.innerHTML = outVal;
+            accept('$'+input.value, index);
+            index++;
+            drawStack(stack);
+            drawOnImage(window[currenState][0],window[currenState][1]);
+            if(index == input.value.length+2){
+                startButton.hidden = "";
+                stepButton.hidden = "hidden";
+                if(stack.length == 0 && (currenState == "q4" || currenState =="q1")){
+                    out.innerHTML +=  '&emsp;<span style="color:green"> Stack is empty and State is at q1 or q4, Accepted! </span>'
+                }
+                else{
+                    out.innerHTML +=  '&emsp;<span style="color:red"> Stack is not empty or State is not at q1 or q4, Rejected! </span>'
+                }
+                
+            }
+        }
+
+        function drawStack(stackList) {
+            canvas.width = canvas.width;
+            var heigtPx = 195;
+            var lineHeight = 181;
+            context.moveTo(80, 10);
             context.lineTo(80, 200);
             context.moveTo(80, 200);
-            context.lineTo(80, 10);
+            context.lineTo(150, 200);
+            context.moveTo(150, 200);
+            context.lineTo(150, 10);
             context.font = "15px Arial";
-            context.fillText("stack", 28, 215);
+            context.fillText("stack", 98, 215);
+            for (let a of stackList) {
+                context.fillText(a, 110, heigtPx);
+                context.moveTo(80, lineHeight);
+                context.lineTo(150, lineHeight);
+                heigtPx -= 20;
+                lineHeight -= 20;
+            }
             context.stroke();
         }
+
+        function drawOnImage(x=1500,y=1500) {
+            var canvas =  document.getElementById('digramCanvas');
+            var ctx =canvas.getContext('2d');
+            canvas.width = canvas.width;
+            var img = new Image();
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                ctx.beginPath();
+                ctx.arc(x, y, 28, 0, 2 * Math.PI);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#FF0000';
+                ctx.stroke();
+            };
+            img.src = 'diagram.png';
+
+
+        }
+
+        function accept(inp, index) {
+            var input = document.getElementById("input");
+            if(index == 0 ){
+                stack.push("$");
+                currenState = "q2";
+            }
+            else if (inp[index] == '0' && currenState == "q1") {
+                stack.push('0');
+                currenState = "q2";
+            }
+            else if (inp[index] == '0' && currenState == "q2") {
+                stack.push('0');
+            }
+            else if(inp[index] == '1' && currenState == "q2"){
+                stack.pop();
+                currenState ="q3"
+            }
+            else if(inp[index] == '1' && currenState == "q3"){
+                stack.pop();
+            }
+            else if(inp[index] != '1' && currenState == "q3"){
+                if(stack.pop() == '$'){
+                    currenState = "q4";
+                }
+            }
+        }
+
     </script>
 </body>
 
